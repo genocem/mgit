@@ -33,11 +33,12 @@ mgit [command] [subcommand] [flags] -- [git command]
 
 #### Add repositories/namespaces
 ```bash
-# Add a new repository to current namespace
-mgit add repo <repository-url> [flags]
+# Add a new repository to current namespace (name of the repository is automatically gotten from the end of the path)
+mgit add repo --<path> full-path
+Optional: mgit add repo --<path> full-path --name custom-name
 
 # Add a new namespace
-mgit add namespace <namespace-name>
+mgit add namespace --name <namespace-name>
 ```
 
 #### Delete repositories/namespaces

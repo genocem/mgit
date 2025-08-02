@@ -1,7 +1,7 @@
 # mgit - Multi-Repository Git Management Tool
 
 
-**mgit** is a powerful command-line tool for managing and executing commands across multiple Git repositories simultaneously. Built in Go, it simplifies workflows when working with multiple repositories by allowing you to perform operations across all your projects with a single command.
+**mgit** is a command-line tool for managing and executing commands across multiple Git repositories simultaneously. Built in Go, it simplifies workflows when working with multiple repositories by allowing you to perform operations across all your projects with a single command.
 
 
 ## Installation
@@ -26,16 +26,18 @@ source /etc/bash_completion.d/mgit_completion
 
 ### Basic Structure
 ```bash
-mgit [command] [subcommand] [flags] -- [git command]
+mgit [flags] --repos [repos] -- [command to run on repos]
+mgit [subcommand] [flags] 
 ```
 
 ### Core Commands
 
 #### Add repositories/namespaces
 ```bash
-# Add a new repository to current namespace (name of the repository is automatically gotten from the end of the path)
-mgit add repo --<path> full-path
-Optional: mgit add repo --<path> full-path --name custom-name
+# Add a new repository to current namespace
+mgit add repo --<path> full-path #name of the repository is automatically sourced from the end of the path
+
+mgit add repo --<path> full-path --name custom-name
 
 # Add a new namespace
 mgit add namespace --name <namespace-name>
@@ -55,6 +57,9 @@ mgit delete namespace <namespace-name>
 # List repositories in current namespace
 mgit list
 
+# List repositories in a sepecified namespace
+mgit list --namespace name
+
 # List repositories in all namespaces
 mgit list --all
 ```
@@ -69,8 +74,8 @@ mgit switch-namespace <namespace-name>
 #### Run commands on repositories
 ```bash
 # Run 'git status' on selected repositories
-mgit --repos repo1,repo2 -- git status
-
+mgit --repos repo1,repo2,repo3 -- git status
+mgit -r repo1 -r repo2 -- git status
 # Run 'git pull' on all repositories in current namespace
 mgit -- git pull
 ```

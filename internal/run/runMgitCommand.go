@@ -12,6 +12,7 @@ import (
 func RunMgitCommand(repos []string, namespace string, args []string) {
 
 	allRepos, err := store.GetAllReposInNamespace(namespace)
+
 	if err != nil {
 		log.Fatalf("Error fetching repositories in namespace %s: %v\n", namespace, err)
 	}
@@ -19,7 +20,7 @@ func RunMgitCommand(repos []string, namespace string, args []string) {
 		log.Fatalf("No repositories found in the namespace %s.\n", namespace)
 	}
 	var approvedRepos []model.Repo
-	if len(repos) == 1 && repos[0] == "all" {
+	if len(repos) == 0 {
 		approvedRepos = allRepos
 	} else {
 		if ok, name := logic.AllSliceElemsExistInReposSlice(repos, allRepos); !ok {

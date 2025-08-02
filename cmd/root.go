@@ -18,8 +18,11 @@ var rootCmd = &cobra.Command{
 			cmd.Help()
 			return
 		}
-		repos, _ := cmd.Flags().GetStringArray("repos")
+		repos, _ := cmd.Flags().GetStringSlice("repos")
 		namespace, _ := cmd.Flags().GetString("namespace")
+		if namespace == "" {
+			namespace = config.GetCurrentNamespace()
+		}
 
 		run.RunMgitCommand(repos, namespace, args)
 	},
@@ -33,7 +36,7 @@ func Execute() error {
 }
 
 func init() {
-	rootCmd.Flags().StringArrayP("repos", "r", []string{}, "List of repositories to run commands on")
+	rootCmd.Flags().StringSliceP("repos", "r", []string{}, "List of repositories to run commands on")
 	rootCmd.PersistentFlags().StringP("namespace", "n", config.GetCurrentNamespace(), "Namespace for the resource")
 	rootCmd.RegisterFlagCompletionFunc("repos", completion.RepoCompletion)
 	rootCmd.RegisterFlagCompletionFunc("namespace", completion.NamespaceCompletion)

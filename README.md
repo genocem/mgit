@@ -75,11 +75,6 @@ mgit --repos repo1,repo2 -- git status
 mgit -- git pull
 ```
 
-### Global Flags
-```bash
--n, --namespace string   Namespace for the resource (default "default")
--r, --repos strings      List of repositories to run commands on
-```
 
 ## Examples
 

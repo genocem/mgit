@@ -1,0 +1,8 @@
+#!/bin/bash
+go build -o mgit && \
+sleep 0.5 && \
+chmod +x mgit && \
+sudo mv mgit /usr/local/bin/ && \
+go run ./ completion > mgit_completion && \
+sudo mv mgit_completion /etc/bash_completion.d/  && \
+source /etc/bash_completion.d/mgit_completion 

@@ -92,7 +92,8 @@ mgit switch-namespace work-projects
 
 3. **Check status of specific repositories:**
 ```bash
-mgit --repos project1,project2 -- git status
+mgit --repos project1 --repos project2 -- git status
+mgit -r project1 -r project2 -- git status
 ```
 
 4. **Pull latest changes from all repositories in current namespace:**

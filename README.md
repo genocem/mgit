@@ -80,8 +80,8 @@ mgit -- git pull
 
 1. **Add repositories to your workspace:**
 ```bash
-mgit add repo https://github.com/user/project1
-mgit add repo https://github.com/user/project2
+mgit add repo --path /home/username/projects/project1
+mgit add repo -p /home/username/projects/project2
 ```
 
 2. **Create and switch to a new namespace:**

@@ -1,17 +1,8 @@
 # mgit - Multi-Repository Git Management Tool
 
-![mgit preview](https://github.com/genocem/mgit/blob/main/image.png)
 
 **mgit** is a powerful command-line tool for managing and executing commands across multiple Git repositories simultaneously. Built in Go, it simplifies workflows when working with multiple repositories by allowing you to perform operations across all your projects with a single command.
 
-## Features
-
-- 🗂️ **Namespace management** - Organize repositories into namespaces
-- ⚡ **Batch operations** - Run commands across multiple repositories at once
-- 📋 **Repository tracking** - Add, list, and delete repositories from your workflow
-- 🔁 **Namespace switching** - Easily change between different sets of repositories
-- 📊 **Tabular output** - Clear visualization of repository statuses and results
-- 🔄 **Auto-completion** - Bash completion support for seamless CLI experience
 
 ## Installation
 
@@ -66,6 +57,7 @@ mgit list
 # List repositories in all namespaces
 mgit list --all
 ```
+![list preview](https://github.com/genocem/mgit/blob/main/image.png)
 
 #### Switch namespaces
 ```bash

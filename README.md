@@ -1,8 +1,7 @@
 # mgit - Multi-Repository Git Management Tool
 
 
-**mgit** is a command-line tool for managing and executing commands across multiple Git repositories simultaneously. Built in Go, it simplifies workflows when working with multiple repositories by allowing you to perform operations across all your projects with a single command.
-
+**mgit** is a command-line tool for managing and executing commands across multiple Git repositories simultaneously.
 
 ## Installation
 
@@ -10,17 +9,56 @@
 - Go 1.23 or higher
 - Git installed on your system
 
+
+
 ### Build and Install
+
+#### Linux/macOS (Bash/Zsh)
+
 ```bash
 go build -o mgit
 chmod +x mgit
-sudo mv mgit /usr/local/bin/
-
-# Enable bash completion
-go run ./ completion > mgit_completion
-sudo mv mgit_completion /etc/bash_completion.d/
-source /etc/bash_completion.d/mgit_completion
+sudo mv mgit /usr/local/bin/mgit
 ```
+
+#### Windows (PowerShell or CMD)
+
+```powershell
+go build -o mgit.exe
+Move-Item mgit.exe "$env:USERPROFILE\bin\mgit.exe"
+# Ensure $env:USERPROFILE\bin is in your PATH
+```
+
+---
+
+### Shell Completion
+
+#### Bash (Linux)
+
+```bash
+go run ./ completion > mgit_completion
+sudo mv mgit_completion /etc/bash_completion.d/mgit
+source /etc/bash_completion.d/mgit
+```
+
+#### Zsh (macOS)
+
+```bash
+go run ./ completion zsh > _mgit
+mkdir -p ~/.zsh/completions
+mv _mgit ~/.zsh/completions/
+echo 'fpath+=~/.zsh/completions' >> ~/.zshrc
+autoload -Uz compinit && compinit
+```
+
+#### PowerShell (Windows)
+
+```powershell
+go run ./ completion powershell > mgit_completion.ps1
+
+. .\mgit_completion.ps1 # for temporary use 
+```
+
 
 ## Usage
 
@@ -65,9 +103,8 @@ mgit list --all
 ```
 ![list preview](https://github.com/genocem/mgit/blob/main/image.png)
 
-#### Switch namespaces
+#### Switch between namespaces
 ```bash
-# Change to a different namespace
 mgit switch-namespace <namespace-name>
 ```
 

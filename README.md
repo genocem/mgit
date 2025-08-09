@@ -13,7 +13,7 @@
 ## Download
 Download the latest version from the [Releases page](https://github.com/genocem/mgit/releases).
 
-## Install Linux
+## Install on Linux
 
 ### App Binary
 ```bash
@@ -28,7 +28,7 @@ sudo mv mgit /usr/local/bin/mgit
 sudo mv <mgit_completion> /etc/bash_completion.d/<mgit_completion>
 source /etc/bash_completion.d/<mgit_completion>
 ```
-## Install MacOS
+## Install on MacOS
 
 ### App Binary
 ```bash
@@ -45,7 +45,7 @@ mv <_mgit> ~/.zsh/completions/
 echo 'fpath+=~/.zsh/completions' >> ~/.zshrc
 autoload -Uz compinit && compinit
 ```
-## Install Windows
+## Install on Windows
 
 ### App Binary
 ```ps1
@@ -62,13 +62,14 @@ go run ./ completion powershell > mgit_completion.ps1
 ```
 
 
-## Build yourself (requires go to be installed)
+## Build from source (requires Go to be installed)
 
 ### Build Binaries
 
 #### Linux/macOS 
 
 ```bash
+cd mgit
 go build -o mgit
 chmod +x mgit
 sudo mv mgit /usr/local/bin/mgit
@@ -77,6 +78,7 @@ sudo mv mgit /usr/local/bin/mgit
 #### Windows (PowerShell or CMD)
 
 ```powershell
+cd mgit
 go build -o mgit.exe
 Move-Item mgit.exe "$env:USERPROFILE\bin\mgit.exe"
 # Ensure $env:USERPROFILE\bin is in your PATH
@@ -118,9 +120,9 @@ mgit completion powershell > mgit_completion.ps1
 ### Add repositories/namespaces
 ```bash
 # Add a new repository to current namespace
-mgit add repo --<path> full-path #name of the repository is automatically sourced from the end of the path
+mgit add repo --path <full-path> #name of the repository is automatically sourced from the end of the path
 
-mgit add repo --<path> full-path --name custom-name
+mgit add repo --path <full-path> --name custom-name
 
 # Add a new namespace
 mgit add namespace --name <namespace-name>

@@ -10,12 +10,63 @@
 - Git installed on your system
 
 
-## Download and install
-**releases**
+## Download
+Download the latest version from the [Releases page](https://github.com/genocem/mgit/releases).
 
-### Build and Install
+## Install Linux
 
-#### Linux/macOS (Bash/Zsh)
+### App Binary
+```bash
+chmod +x mgit
+sudo mv mgit /usr/local/bin/mgit
+```
+### Shell Completion
+
+#### Bash/Zsh/Fish (Linux)
+
+```bash
+sudo mv <mgit_completion> /etc/bash_completion.d/<mgit_completion>
+source /etc/bash_completion.d/<mgit_completion>
+```
+## Install MacOS
+
+### App Binary
+```bash
+chmod +x mgit
+sudo mv mgit /usr/local/bin/mgit
+```
+### Shell Completion
+
+#### Zsh (macOS)
+
+```bash
+mkdir -p ~/.zsh/completions
+mv <_mgit> ~/.zsh/completions/
+echo 'fpath+=~/.zsh/completions' >> ~/.zshrc
+autoload -Uz compinit && compinit
+```
+## Install Windows
+
+### App Binary
+```ps1
+Move-Item mgit.exe "$env:USERPROFILE\bin\mgit.exe"
+# Ensure $env:USERPROFILE\bin is in your PATH
+```
+### Shell Completion
+#### PowerShell temporary use
+
+```powershell
+go run ./ completion powershell > mgit_completion.ps1
+
+. .\mgit_completion.ps1 # for temporary use 
+```
+
+
+## Build yourself (requires go to be installed)
+
+### Build Binaries
+
+#### Linux/macOS 
 
 ```bash
 go build -o mgit
@@ -31,35 +82,35 @@ Move-Item mgit.exe "$env:USERPROFILE\bin\mgit.exe"
 # Ensure $env:USERPROFILE\bin is in your PATH
 ```
 
----
 
-### Shell Completion
+### Completion
 
-#### Bash (Linux)
-
+#### bash
 ```bash
-go run ./ completion > mgit_completion
-sudo mv mgit_completion /etc/bash_completion.d/mgit
-source /etc/bash_completion.d/mgit
+mgit completion bash > mgit_completion.bash
 ```
 
-#### Zsh (macOS)
+#### zsh
 
-```bash
-go run ./ completion zsh > _mgit
-mkdir -p ~/.zsh/completions
-mv _mgit ~/.zsh/completions/
-echo 'fpath+=~/.zsh/completions' >> ~/.zshrc
-autoload -Uz compinit && compinit
+```zsh
+mgit completion zsh > mgit_completion.zsh
 ```
 
-#### PowerShell (Windows)
+#### fish
+
+```fish
+mgit completion fish > mgit_completion.fish
+```
+
+#### powershell
 
 ```powershell
-go run ./ completion powershell > mgit_completion.ps1
-
-. .\mgit_completion.ps1 # for temporary use 
+mgit completion powershell > mgit_completion.ps1
 ```
+
+---
+
+
 
 
 ## Usage

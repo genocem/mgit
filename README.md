@@ -3,12 +3,6 @@
 
 **mgit** is a command-line tool for managing and executing commands across multiple Git repositories simultaneously.
 
-## Installation
-
-### Prerequisites
-- Go 1.23 or higher
-- Git installed on your system
-
 
 ## Download
 Download the latest version from the [Releases page](https://github.com/genocem/mgit/releases).

@@ -4,27 +4,15 @@ import (
 	"fmt"
 	"mgit/internal/completion"
 	"mgit/internal/config"
-	"mgit/internal/run"
 
 	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "mgit [flags] -- [command to run on a repo]",
+	Use:   "mgit [command] [flags] ",
 	Short: "run a command on multiple git repositories",
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) == 0 {
-			fmt.Println("Please provide a command.")
-			cmd.Help()
-			return
-		}
-		repos, _ := cmd.Flags().GetStringSlice("repos")
-		namespace, _ := cmd.Flags().GetString("namespace")
-		if namespace == "" {
-			namespace = config.GetCurrentNamespace()
-		}
-
-		run.RunMgitCommand(repos, namespace, args)
+		cmd.Help()
 	},
 }
 
@@ -36,8 +24,6 @@ func Execute() error {
 }
 
 func init() {
-	rootCmd.Flags().StringSliceP("repos", "r", []string{}, "List of repositories to run commands on")
-	rootCmd.PersistentFlags().StringP("namespace", "n", config.GetCurrentNamespace(), "Namespace for the resource")
-	rootCmd.RegisterFlagCompletionFunc("repos", completion.RepoCompletion)
+	rootCmd.PersistentFlags().StringP("namespace", "n", config.GetCurrentNamespace(), "Namespace for the repos")
 	rootCmd.RegisterFlagCompletionFunc("namespace", completion.NamespaceCompletion)
 }

@@ -10,6 +10,8 @@
 - Git installed on your system
 
 
+## Download and install
+**releases**
 
 ### Build and Install
 
@@ -62,15 +64,7 @@ go run ./ completion powershell > mgit_completion.ps1
 
 ## Usage
 
-### Basic Structure
-```bash
-mgit [flags] --repos [repos] -- [command to run on repos]
-mgit [subcommand] [flags] 
-```
-
-### Core Commands
-
-#### Add repositories/namespaces
+### Add repositories/namespaces
 ```bash
 # Add a new repository to current namespace
 mgit add repo --<path> full-path #name of the repository is automatically sourced from the end of the path
@@ -81,7 +75,7 @@ mgit add repo --<path> full-path --name custom-name
 mgit add namespace --name <namespace-name>
 ```
 
-#### Delete repositories/namespaces
+### Delete repositories/namespaces
 ```bash
 # Delete a repository from current namespace
 mgit delete repo <repo-name>
@@ -90,7 +84,7 @@ mgit delete repo <repo-name>
 mgit delete namespace <namespace-name>
 ```
 
-#### List repositories
+### List repositories
 ```bash
 # List repositories in current namespace
 mgit list
@@ -103,18 +97,15 @@ mgit list --all
 ```
 ![list preview](https://github.com/genocem/mgit/blob/main/image.png)
 
-#### Switch between namespaces
+### Switch between namespaces
 ```bash
 mgit switch-namespace <namespace-name>
 ```
 
-#### Run commands on repositories
+### Execute commands on repositories
 ```bash
-# Run 'git status' on selected repositories
-mgit --repos repo1,repo2,repo3 -- git status
-mgit -r repo1 -r repo2 -- git status
-# Run 'git pull' on all repositories in current namespace
-mgit -- git pull
+mgit exec repo1 repo2 repo3 -- command
+mgit exec -- command
 ```
 
 
@@ -134,8 +125,7 @@ mgit switch-namespace work-projects
 
 3. **Check status of specific repositories:**
 ```bash
-mgit --repos project1 --repos project2 -- git status
-mgit -r project1 -r project2 -- git status
+mgit exec project1 project2 -- git status
 ```
 
 4. **Pull latest changes from all repositories in current namespace:**
@@ -150,21 +140,11 @@ mgit list --all
 
 ## Configuration
 
-mgit uses a SQLite database to store your repository information and namespaces. The database is automatically created at `~/.mgit/db.sqlite` on first run.
+mgit uses a SQLite database to store your repository information and namespaces. The database is automatically created at `~/.mgit` as `db.sqlite` on first run. 
 
-## Building from Source
+It also keeps track of the current namespace in `~/.mgit/config.json`
 
-1. Clone the repository:
-```bash
-git clone https://github.com/genocem/mgit.git
-cd mgit
-```
 
-2. Build and install:
-```bash
-go build -o mgit
-sudo mv mgit /usr/local/bin/
-```
 
 ## Contributing
 

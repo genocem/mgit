@@ -4,12 +4,17 @@ import (
 	"fmt"
 	"mgit/internal/model"
 	"os/exec"
-	"strings"
+	"runtime"
 )
 
 func applyCommandToRepo(repo model.Repo, command string) ([]byte, error) {
-	args := strings.Fields(command)
-	cmd := exec.Command(args[0], args[1:]...)
+	var cmd *exec.Cmd
+	if runtime.GOOS == "windows" {
+		cmd = exec.Command("cmd", "/C", command)
+	} else {
+		cmd = exec.Command("sh", "-c", command)
+	}
+
 	cmd.Dir = repo.Path
 	output, err := cmd.CombinedOutput()
 	if err != nil {

@@ -15,7 +15,7 @@ var execCommand = &cobra.Command{
 	Short:             "execute a command on multiple git repositories",
 	ValidArgsFunction: completion.RepoCompletion,
 	PreRun: func(cmd *cobra.Command, args []string) {
-		if logic.DoubleDashExists() {
+		if !logic.DoubleDashExists() {
 			fmt.Print("please provide a command after --")
 			cmd.Help()
 		}

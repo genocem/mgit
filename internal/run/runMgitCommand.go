@@ -29,9 +29,11 @@ func RunMgitCommand(repos []string, namespace string, args []string) {
 		approvedRepos = logic.NamesToRepoSlice(repos, allRepos)
 	}
 
-	err = applyCommandToRepos(approvedRepos, strings.Join(args, " "))
+	command := strings.Join(args, " ")
+
+	err = applyCommandToRepos(approvedRepos, command)
 	if err != nil {
 		log.Fatalf("Error applying command to repositories: %v\n", err)
 	}
-	fmt.Printf("Command '%s' executed successfully on repositories: %s\n", strings.Join(args, " "), strings.Join(logic.ReposToNamesSlice(approvedRepos), ", "))
+	fmt.Printf("Command '%s' executed successfully on repositories: %s\n", command, strings.Join(logic.ReposToNamesSlice(approvedRepos), ", "))
 }

@@ -37,8 +37,11 @@ func AddRepoFunc(path, name, namespace string) {
 	if namespace == "" {
 		namespace = config.GetCurrentNamespace()
 	}
-
-	if err := store.AddRepo(path, name, namespace); err != nil {
+	abspath, err := filepath.Abs(path)
+	if err != nil {
+		log.Fatalf("problem getting absolute path of path '%s'", path)
+	}
+	if err := store.AddRepo(abspath, name, namespace); err != nil {
 		log.Fatalf("add repo db function got fucked %s", err)
 	}
 	log.Printf("Repository '%s' added successfully.", name)

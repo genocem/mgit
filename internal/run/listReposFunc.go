@@ -29,7 +29,8 @@ func ListReposInNamespaceFunc(namespace string, allRepos bool) {
 	table.SetRowLines(false)
 
 	for _, repo := range repos {
-		branch, err := applyCommandToRepo(repo, "git rev-parse --abbrev-ref HEAD")
+		command := []string{"git", "rev-parse", "--abbrev-ref", "HEAD"}
+		branch, err := applyCommandToRepo(repo, command)
 		if err != nil {
 			log.Printf("Error getting current branch for repo %s: %v\n", repo.Name, err)
 			branch = []byte("unknown")

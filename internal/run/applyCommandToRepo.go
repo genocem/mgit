@@ -5,9 +5,16 @@ import (
 	"mgit/internal/model"
 	"os/exec"
 	"runtime"
+	"strconv"
+	"strings"
 )
 
-func applyCommandToRepo(repo model.Repo, command string) ([]byte, error) {
+func applyCommandToRepo(repo model.Repo, args []string) ([]byte, error) {
+	parts := make([]string, len(args))
+	for i, a := range args {
+		parts[i] = strconv.Quote(a)
+	}
+	command := strings.Join(parts, " ")
 	var cmd *exec.Cmd
 	if runtime.GOOS == "windows" {
 		cmd = exec.Command("cmd", "/C", command)
@@ -22,11 +29,11 @@ func applyCommandToRepo(repo model.Repo, command string) ([]byte, error) {
 	}
 	return output, nil
 }
-func applyCommandToRepos(repos []model.Repo, command string) error {
+func applyCommandToRepos(repos []model.Repo, args []string) error {
 	for _, repo := range repos {
-		output, err := applyCommandToRepo(repo, command)
+		output, err := applyCommandToRepo(repo, args)
 		if err != nil {
-			return fmt.Errorf("error applying command '%s' to repo '%s': %v", command, repo.Name, err)
+			return fmt.Errorf("error applying command '%s' to repo '%s': %v", args, repo.Name, err)
 		}
 		fmt.Printf("Output for %s:\n%s\n", repo.Name, output)
 	}

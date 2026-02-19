@@ -7,8 +7,9 @@ import (
 )
 
 var deleteCmd = &cobra.Command{
-	Use:   "delete (repo or namespace)",
-	Short: "Delete a repository or namespace by name",
+	Use:     "delete (repo or namespace)",
+	Aliases: []string{"del"},
+	Short:   "Delete a repository or namespace by name",
 	Run: func(cmd *cobra.Command, args []string) {
 		if cmd.Flags().NFlag() == 0 {
 			fmt.Println("Usage: mgit delete repo --name <name> --namespace <namespace>")

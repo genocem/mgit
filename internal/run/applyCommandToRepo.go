@@ -7,6 +7,7 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
+	"sync"
 )
 
 func applyCommandToRepo(repo model.Repo, args []string) ([]byte, error) {
@@ -29,13 +30,37 @@ func applyCommandToRepo(repo model.Repo, args []string) ([]byte, error) {
 	}
 	return output, nil
 }
+
+type result struct {
+	err error
+}
+
 func applyCommandToRepos(repos []model.Repo, args []string) error {
+	ch := make(chan result)
+	var wg sync.WaitGroup
 	for _, repo := range repos {
-		output, err := applyCommandToRepo(repo, args)
-		if err != nil {
-			return fmt.Errorf("error applying command '%s' to repo '%s': %v", args, repo.Name, err)
-		}
-		fmt.Printf("Output for %s:\n%s\n", repo.Name, output)
+		wg.Add(1)
+		go func(repo model.Repo, ch chan<- result) {
+			defer wg.Done()
+			output, err := applyCommandToRepo(repo, args)
+			if err == nil {
+				fmt.Printf("Output for %s:\n%s\n", repo.Name, output)
+			} else {
+				ch <- result{err: err}
+			}
+		}(repo, ch)
 	}
+	go func() {
+		wg.Wait()
+		close(ch)
+	}()
+	var finalErr string
+	for res := range ch {
+		finalErr += fmt.Sprintf("\n%s\n", res.err)
+	}
+	if finalErr != "" {
+		return fmt.Errorf(finalErr)
+	}
+
 	return nil
 }

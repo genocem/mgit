@@ -1,9 +1,7 @@
 package logic
 
-import (
-	"regexp"
-)
+import "strings"
 
 func IsValidProject(name string) bool {
-	return regexp.MustCompile(`^[a-z]+$`).MatchString(name)
+	return strings.TrimSpace(name) != ""
 }

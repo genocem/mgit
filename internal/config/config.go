@@ -7,14 +7,14 @@ import (
 )
 
 type Config struct {
-	CurrentNamespace string `json:"current_namespace"`
+	CurrentProject string `json:"current_project"`
 }
 
 const configPath = "/home/ahmed/.mgit/config.json"
 
 func ensureConfigExists() error {
 	if _, err := os.Stat(configPath); os.IsNotExist(err) {
-		defaultConfig := Config{CurrentNamespace: "default"}
+		defaultConfig := Config{CurrentProject: "default"}
 		data, err := json.MarshalIndent(defaultConfig, "", "  ")
 		if err != nil {
 			return err
@@ -29,7 +29,7 @@ func ensureConfigExists() error {
 	return nil
 }
 
-func GetCurrentNamespace() string {
+func GetCurrentProject() string {
 	if err := ensureConfigExists(); err != nil {
 		return ""
 	}
@@ -41,11 +41,11 @@ func GetCurrentNamespace() string {
 	if err := json.Unmarshal(data, &cfg); err != nil {
 		return ""
 	}
-	return cfg.CurrentNamespace
+	return cfg.CurrentProject
 }
 
-func SetCurrentNamespace(ns string) error {
-	cfg := Config{CurrentNamespace: ns}
+func SetCurrentProject(ns string) error {
+	cfg := Config{CurrentProject: ns}
 	data, err := json.MarshalIndent(cfg, "", "  ")
 	if err != nil {
 		return err

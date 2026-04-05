@@ -41,11 +41,11 @@ func initDB() error {
 	}
 
 	queries := []string{
-		CREATE_NAMESPACE_TABLE_QUERY,
+		CREATE_PROJECT_TABLE_QUERY,
 		CREATE_REPO_TABLE_QUERY,
 		CREATE_REPO_TAGS_TABLE_QUERY,
 		CREATE_REPO_METADATA_TABLE_QUERY,
-		ADD_DEFAULT_NAMESPACE_QUERY,
+		ADD_DEFAULT_PROJECT_QUERY,
 	}
 	for _, query := range queries {
 		if _, err := db.Exec(query); err != nil {

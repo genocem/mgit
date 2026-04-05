@@ -15,30 +15,30 @@ CREATE TABLE repos (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	name TEXT NOT NULL,
 	path TEXT NOT NULL,
-	namespace TEXT NOT NULL,
+	project TEXT NOT NULL,
 	config TEXT,
-	FOREIGN KEY (namespace) REFERENCES namespaces(name) ON DELETE CASCADE
-	UNIQUE (path, namespace)
+	FOREIGN KEY (project) REFERENCES projects(name) ON DELETE CASCADE
+	UNIQUE (path, project)
 	)`
 
 var ADD_REPO_QUERY string = `
-	INSERT INTO repos (name, path, namespace) VALUES (?, ?, ?)
-	ON CONFLICT(path, namespace) DO UPDATE SET
+	INSERT INTO repos (name, path, project) VALUES (?, ?, ?)
+	ON CONFLICT(path, project) DO UPDATE SET
 	name = excluded.name
 	`
 var DELETE_REPO_QUERY string = "DELETE FROM repos WHERE name = ?"
 var REPOS_EXIST_QUERY string = `SELECT * FROM repos WHERE name IN (?)`
-var GET_REPO_QUERY string = `SELECT id, name, path, namespace FROM repos WHERE name = ?`
-var GET_ALL_REPOS_QUERY string = `SELECT id, name, path, namespace FROM repos`
+var GET_REPO_QUERY string = `SELECT id, name, path, project FROM repos WHERE name = ?`
+var GET_ALL_REPOS_QUERY string = `SELECT id, name, path, project FROM repos`
 
-func AddRepo(path, name, namespace string) error {
+func AddRepo(path, name, project string) error {
 	db, err := getDB()
 	if err != nil {
 		return fmt.Errorf("%w", err)
 	}
 	defer db.Close()
 
-	_, err = db.Exec(ADD_REPO_QUERY, name, path, namespace)
+	_, err = db.Exec(ADD_REPO_QUERY, name, path, project)
 	if err != nil {
 		return fmt.Errorf("failed to add repository: %w", err)
 	}
@@ -69,7 +69,7 @@ func GetRepo(name string) (model.Repo, error) {
 
 	var r model.Repo
 	row := db.QueryRow(GET_REPO_QUERY, name)
-	if err := row.Scan(&r.ID, &r.Name, &r.Path, &r.Namespace); err != nil {
+	if err := row.Scan(&r.ID, &r.Name, &r.Path, &r.Project); err != nil {
 		if err == sql.ErrNoRows {
 			return model.Repo{}, fmt.Errorf("repository with name '%s' does not exist", name)
 		}
@@ -78,7 +78,7 @@ func GetRepo(name string) (model.Repo, error) {
 	return r, nil
 }
 
-// this getAllRepos func is for the future if i ever add a -A flag that would get repos from all namespaces
+// this getAllRepos func is for the future if i ever add a -A flag that would get repos from all projects
 func GetAllRepos() ([]model.Repo, error) {
 	db, err := getDB()
 	if err != nil {
@@ -95,7 +95,7 @@ func GetAllRepos() ([]model.Repo, error) {
 	var repos []model.Repo
 	for rows.Next() {
 		var r model.Repo
-		if err := rows.Scan(&r.ID, &r.Name, &r.Path, &r.Namespace); err != nil {
+		if err := rows.Scan(&r.ID, &r.Name, &r.Path, &r.Project); err != nil {
 			return nil, fmt.Errorf("failed to scan repo: %w", err)
 		}
 		repos = append(repos, r)

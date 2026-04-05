@@ -24,6 +24,6 @@ func Execute() error {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringP("namespace", "n", config.GetCurrentNamespace(), "Namespace for the repos")
-	rootCmd.RegisterFlagCompletionFunc("namespace", completion.NamespaceCompletion)
+	rootCmd.PersistentFlags().StringP("project", "n", config.GetCurrentProject(), "Project for the repos")
+	rootCmd.RegisterFlagCompletionFunc("project", completion.ProjectCompletion)
 }

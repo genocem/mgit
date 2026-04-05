@@ -26,12 +26,12 @@ var execCommand = &cobra.Command{
 		repos := args[:doubeDashPosition]
 		command := args[doubeDashPosition:]
 
-		namespace, _ := cmd.Flags().GetString("namespace")
-		if namespace == "" {
-			namespace = config.GetCurrentNamespace()
+		project, _ := cmd.Flags().GetString("project")
+		if project == "" {
+			project = config.GetCurrentProject()
 		}
 
-		run.RunMgitCommand(repos, namespace, command)
+		run.RunMgitCommand(repos, project, command)
 	},
 }
 

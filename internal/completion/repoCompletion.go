@@ -17,12 +17,12 @@ func RepoCompletion(cmd *cobra.Command, args []string, toComplete string) ([]str
 		}
 	}
 
-	namespace, _ := cmd.Flags().GetString("namespace")
-	if namespace == "" {
-		namespace = config.GetCurrentNamespace()
+	project, _ := cmd.Flags().GetString("project")
+	if project == "" {
+		project = config.GetCurrentProject()
 	}
 
-	availableRepos, err := store.GetAllReposInNamespace(namespace)
+	availableRepos, err := store.GetAllReposInProject(project)
 	if err != nil {
 		return []string{}, cobra.ShellCompDirectiveNoFileComp
 	}

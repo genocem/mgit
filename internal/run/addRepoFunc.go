@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 )
 
-func AddRepoFunc(path, name, namespace string) {
+func AddRepoFunc(path, name, project string) {
 
 	info, err := os.Stat(path)
 	if err != nil {
@@ -27,23 +27,23 @@ func AddRepoFunc(path, name, namespace string) {
 		name = filepath.Base(path)
 	}
 
-	if exists, _ := store.GetRepo(name); exists.Name != "" && exists.Namespace == namespace {
+	if exists, _ := store.GetRepo(name); exists.Name != "" && exists.Project == project {
 		log.Fatalf("repository with name '%s' already exists", name)
 	}
 
-	if namespace != "" {
-		if _, err := store.GetNamespace(namespace); err != nil {
-			log.Fatalf("the specified namespace '%s' does not exist", namespace)
+	if project != "" {
+		if _, err := store.GetProject(project); err != nil {
+			log.Fatalf("the specified project '%s' does not exist", project)
 		}
 	}
-	if namespace == "" {
-		namespace = config.GetCurrentNamespace()
+	if project == "" {
+		project = config.GetCurrentProject()
 	}
 
 	if err != nil {
 		log.Fatalf("problem getting absolute path of path '%s'", path)
 	}
-	if err := store.AddRepo(path, name, namespace); err != nil {
+	if err := store.AddRepo(path, name, project); err != nil {
 		log.Fatalf("add repo db function got fucked %s", err)
 	}
 	log.Printf("Repository '%s' added successfully.", name)

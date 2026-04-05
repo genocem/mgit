@@ -9,22 +9,22 @@ import (
 	"strings"
 )
 
-func RunMgitCommand(repos []string, namespace string, args []string) {
+func RunMgitCommand(repos []string, project string, args []string) {
 
-	allRepos, err := store.GetAllReposInNamespace(namespace)
+	allRepos, err := store.GetAllReposInProject(project)
 
 	if err != nil {
-		log.Fatalf("Error fetching repositories in namespace %s: %v\n", namespace, err)
+		log.Fatalf("Error fetching repositories in project %s: %v\n", project, err)
 	}
 	if len(allRepos) == 0 {
-		log.Fatalf("No repositories found in the namespace %s.\n", namespace)
+		log.Fatalf("No repositories found in the project %s.\n", project)
 	}
 	var approvedRepos []model.Repo
 	if len(repos) == 0 {
 		approvedRepos = allRepos
 	} else {
 		if ok, name := logic.AllSliceElemsExistInReposSlice(repos, allRepos); !ok {
-			log.Fatalf("the repository %s doesn't exist in the namespace %s.\n", name, namespace)
+			log.Fatalf("the repository %s doesn't exist in the project %s.\n", name, project)
 		}
 		approvedRepos = logic.NamesToRepoSlice(repos, allRepos)
 	}

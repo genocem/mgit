@@ -7,17 +7,17 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var namespaceCmd = &cobra.Command{
-	Use:     "namespace",
+var projectCmd = &cobra.Command{
+	Use:     "project",
 	Aliases: []string{"del"},
-	Short:   "Get names of namespaces",
+	Short:   "Get names of projects",
 	Run: func(cmd *cobra.Command, args []string) {
 		if cmd.Flags().NFlag() != 0 {
 			log.Fatal("this command doesn't take flags")
 		}
-		run.ShowNamespaces()
+		run.ShowProjects()
 	}}
 
 func init() {
-	rootCmd.AddCommand(namespaceCmd)
+	rootCmd.AddCommand(projectCmd)
 }

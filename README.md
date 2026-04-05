@@ -111,42 +111,42 @@ mgit completion powershell > mgit_completion.ps1
 
 ## Usage
 
-### Add repositories/namespaces
+### Add repositories/projects
 ```bash
-# Add a new repository to current namespace
+# Add a new repository to current project
 mgit add repo --path <full-path> #name of the repository is automatically sourced from the end of the path
 
 mgit add repo --path <full-path> --name custom-name
 
-# Add a new namespace
-mgit add namespace --name <namespace-name>
+# Add a new project
+mgit add project --name <project-name>
 ```
 
-### Delete repositories/namespaces
+### Delete repositories/projects
 ```bash
-# Delete a repository from current namespace
+# Delete a repository from current project
 mgit delete repo <repo-name>
 
-# Delete a namespace
-mgit delete namespace <namespace-name>
+# Delete a project
+mgit delete project <project-name>
 ```
 
 ### List repositories
 ```bash
-# List repositories in current namespace
+# List repositories in current project
 mgit list
 
-# List repositories in a sepecified namespace
-mgit list --namespace name
+# List repositories in a sepecified project
+mgit list --project name
 
-# List repositories in all namespaces
+# List repositories in all projects
 mgit list --all
 ```
 ![list preview](https://github.com/genocem/mgit/blob/main/image.png)
 
-### Switch between namespaces
+### Switch between projects
 ```bash
-mgit switch-namespace <namespace-name>
+mgit switch-project <project-name>
 ```
 
 ### Execute commands on repositories
@@ -164,10 +164,10 @@ mgit add repo --path /home/username/projects/project1
 mgit add repo -p /home/username/projects/project2
 ```
 
-2. **Create and switch to a new namespace:**
+2. **Create and switch to a new project:**
 ```bash
-mgit add namespace work-projects
-mgit switch-namespace work-projects
+mgit add project work-projects
+mgit switch-project work-projects
 ```
 
 3. **Check status of specific repositories:**
@@ -175,21 +175,21 @@ mgit switch-namespace work-projects
 mgit exec project1 project2 -- git status
 ```
 
-4. **Pull latest changes from all repositories in current namespace:**
+4. **Pull latest changes from all repositories in current project:**
 ```bash
 mgit -- git pull
 ```
 
-5. **List all tracked repositories across namespaces:**
+5. **List all tracked repositories across projects:**
 ```bash
 mgit list --all
 ```
 
 ## Configuration
 
-mgit uses a SQLite database to store your repository information and namespaces. The database is automatically created at `~/.mgit` as `db.sqlite` on first run. 
+mgit uses a SQLite database to store your repository information and projects. The database is automatically created at `~/.mgit` as `db.sqlite` on first run. 
 
-It also keeps track of the current namespace in `~/.mgit/config.json`
+It also keeps track of the current project in `~/.mgit/config.json`
 
 
 

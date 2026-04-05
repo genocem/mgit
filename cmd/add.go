@@ -8,12 +8,12 @@ import (
 )
 
 var addCmd = &cobra.Command{
-	Use:   "add (repo or namespace)",
+	Use:   "add (repo or project)",
 	Short: "Add smth new",
 	Run: func(cmd *cobra.Command, args []string) {
 		if cmd.Flags().NFlag() == 0 {
-			fmt.Println("Usage: mgit add repo --path <path> --name <name> --namespace <namespace>")
-			fmt.Println("or: mgit add namespace --name <name>")
+			fmt.Println("Usage: mgit add repo --path <path> --name <name> --project <project>")
+			fmt.Println("or: mgit add project --name <name>")
 			return
 		}
 	},

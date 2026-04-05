@@ -4,6 +4,6 @@ import (
 	"regexp"
 )
 
-func IsValidNamespace(name string) bool {
+func IsValidProject(name string) bool {
 	return regexp.MustCompile(`^[a-z]+$`).MatchString(name)
 }

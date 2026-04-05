@@ -15,18 +15,18 @@ var addRepoCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		if cmd.Flags().NFlag() == 0 {
 			fmt.Println("Usage: mgit add repo --path <path> --name <name>")
-			fmt.Println("Optional: --namespace <namespace> (default: 'default') ")
+			fmt.Println("Optional: --project <project> (default: 'default') ")
 			return
 		}
 		path, _ := cmd.Flags().GetString("path")
 		name, _ := cmd.Flags().GetString("name")
 
-		namespace, _ := cmd.Flags().GetString("namespace")
+		project, _ := cmd.Flags().GetString("project")
 		if path == "" {
 			path, _ = os.Getwd()
 			fmt.Printf("No path provided, using current directory: %s\n", path)
 		}
-		run.AddRepoFunc(path, name, namespace)
+		run.AddRepoFunc(path, name, project)
 	},
 }
 

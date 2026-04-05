@@ -13,21 +13,21 @@ var listRepos = &cobra.Command{
 	Short: "List all tracked repositories",
 	Run: func(cmd *cobra.Command, args []string) {
 		allRepos, _ := cmd.Flags().GetBool("all")
-		namespace, _ := cmd.Flags().GetString("namespace")
+		project, _ := cmd.Flags().GetString("project")
 
 		if allRepos {
-			fmt.Println("Listing all repositories across all namespaces.")
+			fmt.Println("Listing all repositories across all projects.")
 		} else {
-			if namespace == "" {
-				namespace = config.GetCurrentNamespace()
+			if project == "" {
+				project = config.GetCurrentProject()
 			}
-			fmt.Printf("Listing repositories in namespace: %s\n", namespace)
+			fmt.Printf("Listing repositories in project: %s\n", project)
 		}
-		run.ListReposInNamespaceFunc(namespace, allRepos)
+		run.ListReposInProjectFunc(project, allRepos)
 	},
 }
 
 func init() {
-	listRepos.Flags().BoolP("all", "A", false, "list repos in *all* namespaces")
+	listRepos.Flags().BoolP("all", "A", false, "list repos in *all* projects")
 	rootCmd.AddCommand(listRepos)
 }

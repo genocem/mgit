@@ -146,7 +146,7 @@ mgit list --all
 
 ### Switch between projects
 ```bash
-mgit switch-project <project-name>
+mgit switch <project-name>
 ```
 
 ### Execute commands on repositories
@@ -167,7 +167,7 @@ mgit add repo -p /home/username/projects/project2
 2. **Create and switch to a new project:**
 ```bash
 mgit add project work-projects
-mgit switch-project work-projects
+mgit switch work-projects
 ```
 
 3. **Check status of specific repositories:**

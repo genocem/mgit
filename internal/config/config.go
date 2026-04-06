@@ -10,7 +10,7 @@ type Config struct {
 	CurrentProject string `json:"current_project"`
 }
 
-const configPath = "/home/ahmed/.mgit/config.json"
+const configPath = "~/.mgit/config.json"
 
 func ensureConfigExists() error {
 	if _, err := os.Stat(configPath); os.IsNotExist(err) {

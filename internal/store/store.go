@@ -11,7 +11,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-const dbPath = "/home/ahmed/.mgit/mgit.db"
+const dbPath = "~/.mgit/mgit.db"
 
 // i added these for future ideas
 var CREATE_REPO_TAGS_TABLE_QUERY string = `

@@ -2,6 +2,7 @@ package store
 
 import (
 	"fmt"
+	"mgit/internal/config"
 	"os"
 	"path/filepath"
 
@@ -11,7 +12,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-const dbPath = "/home/ahmed/.mgit/mgit.db"
+var dbPath = filepath.Join(config.GetPath(), "mgit.db")
 
 // i added these for future ideas
 var CREATE_REPO_TAGS_TABLE_QUERY string = `

@@ -2,15 +2,38 @@ package config
 
 import (
 	"encoding/json"
+	"log"
 	"os"
 	"path/filepath"
+	"runtime"
 )
 
 type Config struct {
 	CurrentProject string `json:"current_project"`
 }
 
-const configPath = "~/.mgit/config.json"
+var mgitpath string
+
+var configPath = filepath.Join(GetPath(), "config.json")
+
+func GetPath() string {
+	if mgitpath == "" {
+		if runtime.GOOS == "windows" {
+			d := os.Getenv("LOCALAPPDATA")
+			if d == "" {
+				log.Fatal("LOCALAPPDATA not set")
+			}
+			return filepath.Join(d, "mgit")
+		} else {
+			userpath, err := os.UserHomeDir()
+			if err != nil {
+				log.Fatal("no home directory path")
+			}
+			mgitpath = filepath.Join(userpath, ".mgit")
+		}
+	}
+	return mgitpath
+}
 
 func ensureConfigExists() error {
 	if _, err := os.Stat(configPath); os.IsNotExist(err) {

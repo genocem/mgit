@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"mgit/internal/completion"
 	"mgit/internal/config"
-	"mgit/internal/logic"
 	"mgit/internal/run"
+	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -15,9 +15,10 @@ var execCommand = &cobra.Command{
 	Short:             "execute a command on multiple git repositories",
 	ValidArgsFunction: completion.RepoCompletion,
 	PreRun: func(cmd *cobra.Command, args []string) {
-		if !logic.DoubleDashExists() {
-			fmt.Print("please provide a command after --")
+		if cmd.ArgsLenAtDash() < 0 || cmd.ArgsLenAtDash() == len(args)  {
+			fmt.Print("wrong command usage")
 			cmd.Help()
+			os.Exit(1)
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {

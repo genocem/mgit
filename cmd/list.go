@@ -10,6 +10,7 @@ import (
 
 var listRepos = &cobra.Command{
 	Use:   "list",
+	Aliases: []string{"ls"},
 	Short: "List all tracked repositories",
 	Run: func(cmd *cobra.Command, args []string) {
 		allRepos, _ := cmd.Flags().GetBool("all")

@@ -1,5 +1,8 @@
 # mgit - Multi-Repository Git Management Tool
+![GitHub release (latest SemVer)]
+![Mgit logo](https://github.com/genocem/mgit/blob/main/mgit_logo.png)
 
+----
 
 **mgit** is a command-line tool for managing and executing commands across multiple Git repositories simultaneously.
 
